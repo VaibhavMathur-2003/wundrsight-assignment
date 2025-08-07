@@ -50,6 +50,29 @@ class APIClient {
     })
   }
 
+  async getSlots(from: string, to: string) {
+    return this.request(`/slots?from=${from}&to=${to}`)
+  }
+
+  async bookSlot(slotId: string, token: string) {
+    return this.request('/book', {
+      method: 'POST',
+      headers: this.getAuthHeaders(token),
+      body: JSON.stringify({ slotId }),
+    })
+  }
+
+  async getMyBookings(token: string) {
+    return this.request('/my-bookings', {
+      headers: this.getAuthHeaders(token),
+    })
+  }
+
+  async getAllBookings(token: string) {
+    return this.request('/all-bookings', {
+      headers: this.getAuthHeaders(token),
+    })
+  }
 }
 
 export const api = new APIClient()
